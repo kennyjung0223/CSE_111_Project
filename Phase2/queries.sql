@@ -12,17 +12,16 @@ drop table views;
 drop table send;
 
 create table Users (
-    username char(16) not null,
+    username char(32) not null,
     password char(32) not null,
     profile_picture image,
-    preferences char(150) not null,
-    bio char(150) not null,
+    bio char(200) not null,
     home_location char(32) not null,
     age INTEGER
 );
 
 create table Travelers (
-    username char(16) not null,
+    username char(32) not null,
     traveler_id INTEGER,
     vacation_location char(32) not null,
     start_time datetime not null,
@@ -30,24 +29,24 @@ create table Travelers (
 );
 
 create table Local_Residents (
-    username char(16) not null,
+    username char(32) not null,
     resident_id INTEGER
 );
 
-create table Messages (
-    msg_code INTEGER,
-    content char(300) not null
+create table Connections (
+    username char(32) not null,
+    connection_user char(32) not null
 );
 
-create table Calendars (
-    calendar_id INTEGER,
-    username char(16) not null
+create table Events_List (
+    events_list_id INTEGER,
+    username char(32) not null
 );
 
 create table Events (
     event_id INTEGER,
-    calendar_id INTEGER
-    buddy_names char(150) not null,
+    events_list_id INTEGER
+    attendee_user char(32) not null,
     event_time datetime,
     location char(32) not null
 );
@@ -55,7 +54,9 @@ create table Events (
 create table Recommended_Places (
     name char(32) not null,
     city char(32) not null,
-    country char(32) not null
+    state_or_province char(32) not null,
+    country char(32) not null,
+    description char(150) not null
 );
 
 create table buddyOf (
@@ -75,7 +76,7 @@ create table recommend (
     name char(32) not null
 );
 
-create table views (
+create table see (
     traveler_id INTEGER,
     name char(32) not null
 );
