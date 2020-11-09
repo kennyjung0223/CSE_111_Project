@@ -14,6 +14,8 @@ drop table send;
 create table Users (
     username char(32) not null,
     password char(32) not null,
+    name char(32) not null,
+    surname char(32) not null,
     profile_picture image,
     bio char(200) not null,
     home_location char(32) not null,
@@ -62,7 +64,7 @@ create table Recommended_Places (
 create table buddyOf (
     uT_username char(16) not null,
     uT_traveler_id INTEGER,
-    uB_username char(16) not null,
+    uB_username char(16)not null,
     uB_traveler_id INTEGER
 );
 
@@ -85,4 +87,3 @@ create table send (
     username char(16) not null,
     msg_code INTEGER
 );
-
