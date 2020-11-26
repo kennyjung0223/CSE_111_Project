@@ -1,0 +1,26 @@
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from "react-native";
+import SwipeCards from "./SwipeCards.js";
+
+export default function Connections() {
+  return (
+    <View style={styles.container}>
+      <SwipeCards />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
