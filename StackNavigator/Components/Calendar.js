@@ -1,65 +1,77 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-  StyleSheet,
-} from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, FlatList, Text, View, TextInput } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const data = [
-  {
-    destination: "Japan",
-    dates: "8/23/2021 - 9/1/2021",
-  },
-  {
-    destination: "Texas",
-    dates: "9/15/2021 - 9/17/2021",
-  },
-  {
-    destination: "Spain",
-    dates: "10/1/2021 - 10/10/2021",
-  },
-  {
-    destination: "Switzerland",
-    dates: "11/5/2021 - 11/10/2021",
-  },
-];
+export default class Calendar extends Component {
+  constructor(props) {
+    super(props);
+    (this.arr = [
+      {
+        eventLocation: "Mount Fuji",
+        country: "Japan",
+      },
+      {
+        eventLocation: "Imperial Tokyo",
+        country: "Japan",
+      },
+      {
+        eventLocation: "Historic Kyoto",
+        country: "Japan",
+      },
+      {
+        eventLocation: "Osaka Castle",
+        country: "Japan",
+      },
+    ]),
+      (this.state = {
+        arrHolder: [],
+        // textInput_Destination: "",
+        // textInput_Dates: "",
+      });
+  }
 
-const Item = ({ destination, dates }) => (
-  <View style={styles.item}>
-    <Text style={styles.dest}>{destination}</Text>
-    <Text style={styles.dates}>{dates}</Text>
-  </View>
-);
+  componentDidMount() {
+    // Copies this.arr into arrHolder
+    this.setState({ arrHolder: [...this.arr] });
+  }
 
-export default function Calendar({ navigation }) {
-  const renderItem = ({ item }) => (
-    <Item destination={item.destination} dates={item.dates} />
-  );
+  // addTrip = () => {
+  //   this.arr.push({
+  //     destination: this.state.textInput_Destination,
+  //     dates: this.state.textInput_Dates,
+  //   });
+  //   this.setState({ arrHolder: [...this.arr] });
+  // };
 
-  return (
-    <View style={styles.container}>
-      <View>
+  render() {
+    return (
+      <View style={styles.container}>
         <FlatList
           style={styles.list}
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.destination}
+          data={this.state.arrHolder}
+          extraData={this.state.arrHolder}
+          keyExtractor={(item) => item.eventLocation}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("AddEvent")}
+              >
+                <Text style={styles.eventLocation}>{item.eventLocation}</Text>
+                <Text style={styles.country}>{item.country}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         />
-      </View>
 
-      <View>
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => navigation.navigate("AddTrip")}
+          onPress={() => this.props.navigation.navigate("AddEvent")}
         >
-          <Text style={styles.text}>Plan a trip!</Text>
+          <Text style={styles.text}>Add Event</Text>
         </TouchableOpacity>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -74,16 +86,18 @@ const styles = StyleSheet.create({
     width: 200,
     height: 75,
     backgroundColor: "#59cbbd",
+    marginBottom: 30,
+    marginTop: 20,
   },
   list: {
     paddingBottom: 30,
     paddingTop: 10,
   },
-  dest: {
+  eventLocation: {
     fontSize: 24,
     paddingVertical: 5,
   },
-  dates: {
+  country: {
     color: "gray",
   },
   item: {

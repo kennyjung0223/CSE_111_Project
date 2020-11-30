@@ -1,19 +1,25 @@
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
-} from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import SwipeCards from "./SwipeCards.js";
 
-export default function Connections() {
-  return (
-    <View style={styles.container}>
-      <SwipeCards />
-    </View>
-  );
+export default class Connections extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <SwipeCards />
+
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => this.props.navigation.navigate("ConnectionsList")}
+        >
+          <Text style={styles.text}>View Connections</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -22,5 +28,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  btn: {
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 6,
+    width: 200,
+    height: 75,
+    backgroundColor: "#59cbbd",
+    marginBottom: 30,
+  },
+  text: {
+    color: "#fff",
   },
 });

@@ -1,21 +1,14 @@
 import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Button,
-} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import LoginScreen from "./Screens/LoginScreen.js";
 import RegScreen from "./Screens/RegScreen.js";
 import HomeScreen from "./Screens/HomeScreen.js";
-import AddTripScreen from "./Screens/AddTripScreen.js";
+import AddEventScreen from "./Screens/AddEventScreen.js";
+import ConnectionsScreen from "./Screens/ConnectionsScreen.js";
+import EditInfoScreen from "./Screens/EditInfoScreen.js";
 
 const Stack = createStackNavigator();
 
@@ -40,7 +33,9 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="AddTrip" component={AddTripScreen} />
+        <Stack.Screen name="AddEvent" component={AddEventScreen} />
+        <Stack.Screen name="ConnectionsList" component={ConnectionsScreen} />
+        <Stack.Screen name="EditInfo" component={EditInfoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

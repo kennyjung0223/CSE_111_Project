@@ -1,42 +1,72 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   StyleSheet,
   View,
   Text,
   Image,
-  ScrollView,
+  FlatList,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 
-export default function Profile() {
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <Image style={styles.img} source={require("../assets/favicon.png")} />
+export default class Profile extends Component {
+  constructor(props) {
+    super(props);
+    (this.arr = [
+      {
+        name: "Joseph Earl Thomas",
+        userName: "JR21",
+        bio:
+          "From LA, California, I enjoy the going to the beach and hanging out with my friends",
+        status: "T",
+      },
+    ]),
+      (this.state = {
+        arrHolder: [],
+      });
+  }
 
-        <Text style={styles.info}>
-          Name: <Text style={styles.userinfo}>Joseph Earl Thomas</Text>
-        </Text>
+  componentDidMount() {
+    // Copies this.arr into arrHolder
+    this.setState({ arrHolder: [...this.arr] });
+  }
 
-        <Text style={styles.info}>
-          Username: <Text style={styles.userinfo}>JR21</Text>
-        </Text>
-
-        <Text style={styles.info}>
-          Bio:{" "}
-          <Text style={styles.userinfo}>
-            From Los Angeles California, I enjoy going to the beach and hanging
-            out with my friends.
-          </Text>
-        </Text>
-
-        <Text style={styles.info}>
-          Status: <Text style={styles.userinfo}>Traveler</Text>
-        </Text>
-      </ScrollView>
-    </View>
-  );
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={this.state.arrHolder}
+          extraData={this.state.arrHolder}
+          keyExtractor={(item) => item.userName}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Image
+                style={styles.img}
+                source={require("../assets/favicon.png")}
+              />
+              <Text style={styles.info}>
+                Name: <Text style={styles.userInfo}>{item.name}</Text>
+              </Text>
+              <Text style={styles.info}>
+                Username: <Text style={styles.userInfo}>{item.userName}</Text>
+              </Text>
+              <Text style={styles.info}>
+                Bio: <Text style={styles.userInfo}>{item.bio}</Text>
+              </Text>
+              <Text style={styles.info}>
+                Status: <Text style={styles.userInfo}>{item.status}</Text>
+              </Text>
+            </View>
+          )}
+        />
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => this.props.navigation.navigate("EditInfo")}
+        >
+          <Text style={styles.text}>Edit Info</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -56,7 +86,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  userinfo: {
+  userInfo: {
     fontWeight: "normal",
+    fontSize: 20,
+  },
+  btn: {
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 6,
+    width: 200,
+    height: 75,
+    backgroundColor: "#59cbbd",
+    marginBottom: 60,
+    marginTop: 20,
+  },
+  text: {
+    color: "#fff",
   },
 });
