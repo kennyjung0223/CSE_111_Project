@@ -35,12 +35,12 @@ export default class Calendar extends Component {
     this.setState({ arrHolder: [...this.arr] });
   }
 
-  // addTrip = () => {
-  //   this.arr.push({
-  //     destination: this.state.textInput_Destination,
-  //     dates: this.state.textInput_Dates,
-  //   });
-  //   this.setState({ arrHolder: [...this.arr] });
+  // returnData(eventLocation, country) {
+  //   this.setState({ arr: { eventLocation: eventLocation, country: country } });
+  // }
+
+  // onEdit = (eventLocation, country) => {
+  //   this.setState({ arr: { eventLocation: eventLocation, country: country } });
   // };
 
   render() {
@@ -54,7 +54,11 @@ export default class Calendar extends Component {
           renderItem={({ item }) => (
             <View style={styles.item}>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate("AddEvent")}
+                onPress={() =>
+                  this.props.navigation.navigate("EditEvent", {
+                    item,
+                  })
+                }
               >
                 <Text style={styles.eventLocation}>{item.eventLocation}</Text>
                 <Text style={styles.country}>{item.country}</Text>
