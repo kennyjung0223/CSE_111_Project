@@ -10,7 +10,7 @@ import {
   Keyboard,
 } from "react-native";
 
-export default class AddEventScreen extends Component {
+export default class EditEventScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,17 +19,27 @@ export default class AddEventScreen extends Component {
     };
   }
 
+  // confirm() {
+  //   this.props.navigation.state.params.returnData(
+  //     textInput_EventLocation,
+  //     textInput_Country
+  //   );
+  //   this.props.navigation.goBack();
+  // }
+
   render() {
+    const { item, onEdit } = this.props.route.params;
     return (
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.container}>
-            <Text style={styles.header}>Add an Event</Text>
+            <Text style={styles.header}>Edit Event</Text>
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
                 placeholder="Event Location"
                 placeholderTextColor="black"
+                defaultValue={item.eventLocation}
                 onChangeText={(data) =>
                   this.setState({ textInput_EventLocation: data })
                 }
@@ -40,6 +50,7 @@ export default class AddEventScreen extends Component {
                 style={styles.textInput}
                 placeholder="Country"
                 placeholderTextColor="black"
+                defaultValue={item.country}
                 onChangeText={(data) =>
                   this.setState({ textInput_Country: data })
                 }
@@ -47,7 +58,9 @@ export default class AddEventScreen extends Component {
             </View>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => this.props.navigation.goBack()}
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}
             >
               <Text style={styles.btnText}>Confirm</Text>
             </TouchableOpacity>

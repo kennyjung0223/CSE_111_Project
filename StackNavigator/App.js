@@ -7,6 +7,7 @@ import LoginScreen from "./Screens/LoginScreen.js";
 import RegScreen from "./Screens/RegScreen.js";
 import HomeScreen from "./Screens/HomeScreen.js";
 import AddEventScreen from "./Screens/AddEventScreen.js";
+import EditEventScreen from "./Screens/EditEventScreen.js";
 import ConnectionsScreen from "./Screens/ConnectionsScreen.js";
 import EditInfoScreen from "./Screens/EditInfoScreen.js";
 
@@ -34,6 +35,7 @@ export default function App() {
         <Stack.Screen name="Register" component={RegScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="AddEvent" component={AddEventScreen} />
+        <Stack.Screen name="EditEvent" component={EditEventScreen} />
         <Stack.Screen name="ConnectionsList" component={ConnectionsScreen} />
         <Stack.Screen name="EditInfo" component={EditInfoScreen} />
       </Stack.Navigator>
