@@ -10,49 +10,36 @@ import {
   Keyboard,
 } from "react-native";
 
-export default class EditEventScreen extends Component {
+export default class AddRecommendationScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      textInput_EventLocation: "",
-      textInput_Country: "",
+      textInput_name: "",
+      textInput_location: "",
     };
   }
 
-  // confirm() {
-  //   this.props.navigation.state.params.returnData(
-  //     textInput_EventLocation,
-  //     textInput_Country
-  //   );
-  //   this.props.navigation.goBack();
-  // }
-
   render() {
-    const { item } = this.props.route.params;
     return (
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.container}>
-            <Text style={styles.header}>Edit Event</Text>
+            <Text style={styles.header}>Make a Recommendation</Text>
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
-                placeholder="Event Location"
+                placeholder="Location Name"
                 placeholderTextColor="black"
-                defaultValue={item.eventLocation}
-                onChangeText={(data) =>
-                  this.setState({ textInput_EventLocation: data })
-                }
+                onChangeText={(data) => this.setState({ textInput_name: data })}
               />
             </View>
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
-                placeholder="Country"
+                placeholder="Location"
                 placeholderTextColor="black"
-                defaultValue={item.country}
                 onChangeText={(data) =>
-                  this.setState({ textInput_Country: data })
+                  this.setState({ textInput_location: data })
                 }
               />
             </View>

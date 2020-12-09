@@ -43,27 +43,35 @@ export default class Profile extends Component {
                 style={styles.img}
                 source={require("../assets/favicon.png")}
               />
-              <Text style={styles.info}>
-                Name: <Text style={styles.userInfo}>{item.name}</Text>
-              </Text>
-              <Text style={styles.info}>
-                Username: <Text style={styles.userInfo}>{item.userName}</Text>
-              </Text>
-              <Text style={styles.info}>
-                Bio: <Text style={styles.userInfo}>{item.bio}</Text>
-              </Text>
-              <Text style={styles.info}>
-                Status: <Text style={styles.userInfo}>{item.status}</Text>
-              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate("EditInfo", { item })
+                }
+              >
+                <Text style={styles.info}>
+                  Name: <Text style={styles.userInfo}>{item.name}</Text>
+                </Text>
+                <Text style={styles.info}>
+                  Username: <Text style={styles.userInfo}>{item.userName}</Text>
+                </Text>
+                <Text style={styles.info}>
+                  Bio: <Text style={styles.userInfo}>{item.bio}</Text>
+                </Text>
+                <Text style={styles.info}>
+                  Status: <Text style={styles.userInfo}>{item.status}</Text>
+                </Text>
+              </TouchableOpacity>
             </View>
           )}
         />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.btn}
-          onPress={() => this.props.navigation.navigate("EditInfo")}
+          onPress={() =>
+            this.props.navigation.navigate("EditInfo", { item: this.state.arr })
+          }
         >
           <Text style={styles.text}>Edit Info</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }

@@ -1,56 +1,63 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-  StyleSheet,
-} from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, FlatList, Text, View, TextInput } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const data = [
-  {
-    name: "Mount Fuji",
-    location: "Fuji-Hakone-Izu National Park",
-  },
-  {
-    name: "Imperial Tokyo",
-    location: "Chiyoda City, Tokyo, Japan",
-  },
-  {
-    name: "Historic Kyoto",
-    location: "Kyoto, Japan",
-  },
-  {
-    name: "Osaka Castle",
-    location: "Osaka, Japan",
-  },
-];
+export default class Calendar extends Component {
+  constructor(props) {
+    super(props);
+    (this.arr = [
+      {
+        name: "Mount Fuji",
+        location: "Fuji-Hakone-Izu National Park",
+      },
+      {
+        name: "Imperial Tokyo",
+        location: "Chiyoda City, Tokyo, Japan",
+      },
+      {
+        name: "Historic Kyoto",
+        location: "Kyoto, Japan",
+      },
+      {
+        name: "Osaka Castle",
+        location: "Osaka, Japan",
+      },
+    ]),
+      (this.state = {
+        arrHolder: [],
+      });
+  }
 
-const Item = ({ name, location }) => (
-  <View style={styles.item}>
-    <Text style={styles.dest}>{name}</Text>
-    <Text style={styles.dates}>{location}</Text>
-  </View>
-);
+  componentDidMount() {
+    // Copies this.arr into arrHolder
+    this.setState({ arrHolder: [...this.arr] });
+  }
 
-export default function Recommendations() {
-  const renderItem = ({ item }) => (
-    <Item name={item.name} location={item.location} />
-  );
-
-  return (
-    <View style={styles.container}>
-      <View>
+  render() {
+    return (
+      <View style={styles.container}>
         <FlatList
           style={styles.list}
-          data={data}
-          renderItem={renderItem}
+          data={this.state.arrHolder}
+          extraData={this.state.arrHolder}
           keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.location}>{item.location}</Text>
+            </View>
+          )}
         />
+
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => this.props.navigation.navigate("AddRecommendation")}
+        >
+          <Text style={styles.text}>Add a Recommendation!</Text>
+        </TouchableOpacity>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -65,16 +72,18 @@ const styles = StyleSheet.create({
     width: 200,
     height: 75,
     backgroundColor: "#59cbbd",
+    marginBottom: 30,
+    marginTop: 20,
   },
   list: {
     paddingBottom: 30,
     paddingTop: 10,
   },
-  dest: {
+  name: {
     fontSize: 24,
     paddingVertical: 5,
   },
-  dates: {
+  location: {
     color: "gray",
   },
   item: {

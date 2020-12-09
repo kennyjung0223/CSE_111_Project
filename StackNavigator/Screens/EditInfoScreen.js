@@ -22,6 +22,7 @@ export default class EditInfoScreen extends Component {
   }
 
   render() {
+    const { item } = this.props.route.params;
     return (
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -32,6 +33,7 @@ export default class EditInfoScreen extends Component {
                 style={styles.textInput}
                 placeholder="Name"
                 placeholderTextColor="black"
+                defaultValue={item.name}
                 onChangeText={(data) => this.setState({ textInput_Name: data })}
               />
             </View>
@@ -40,6 +42,7 @@ export default class EditInfoScreen extends Component {
                 style={styles.textInput}
                 placeholder="Username"
                 placeholderTextColor="black"
+                defaultValue={item.userName}
                 onChangeText={(data) =>
                   this.setState({ textInput_Username: data })
                 }
@@ -48,8 +51,10 @@ export default class EditInfoScreen extends Component {
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
+                multiline={true}
                 placeholder="Bio"
                 placeholderTextColor="black"
+                defaultValue={item.bio}
                 onChangeText={(data) => this.setState({ textInput_Bio: data })}
               />
             </View>
@@ -58,6 +63,7 @@ export default class EditInfoScreen extends Component {
                 style={styles.textInput}
                 placeholder="Status"
                 placeholderTextColor="black"
+                defaultValue={item.status}
                 onChangeText={(data) =>
                   this.setState({ textInput_Status: data })
                 }

@@ -9,7 +9,7 @@ export default function Feed({ navigation }) {
         style={styles.btn}
         onPress={() => navigation.navigate("Recommendations")}
       >
-        <Text>View Reccomendations</Text>
+        <Text style={styles.btntext}>View Reccomendations</Text>
       </TouchableOpacity>
     </View>
   );
@@ -27,5 +27,9 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#59cbbd",
     marginTop: 30,
+    borderRadius: 6,
+  },
+  btntext: {
+    color: "#fff",
   },
 });

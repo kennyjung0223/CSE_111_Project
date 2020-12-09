@@ -16,20 +16,28 @@ export default class ConnectionsScreen extends Component {
     super(props);
     (this.arr = [
       {
-        Name: "Andy Bui",
-        Username: "abui27",
+        name: "Andy Bui",
+        userName: "abui27",
+        bio: "my bio",
+        status: "T",
       },
       {
-        Name: "J.R. Smith",
-        Username: "JR21",
+        name: "J.R. Smith",
+        userName: "JR21",
+        bio: "my bio",
+        status: "T",
       },
       {
-        Name: "Kenny Jung",
-        Username: "GamjaMan",
+        name: "Kenny Jung",
+        userName: "GamjaMan",
+        bio: "my bio",
+        status: "T",
       },
       {
-        Name: "Lebron James",
-        Username: "KingJames",
+        name: "Lebron James",
+        userName: "KingJames",
+        bio: "my bio",
+        status: "T",
       },
     ]),
       (this.state = {
@@ -49,12 +57,16 @@ export default class ConnectionsScreen extends Component {
           style={styles.list}
           data={this.state.arrHolder}
           extraData={this.state.arrHolder}
-          keyExtractor={(item) => item.Username}
+          keyExtractor={(item) => item.userName}
           renderItem={({ item }) => (
             <View style={styles.item}>
-              <TouchableOpacity>
-                <Text style={styles.name}>{item.Name}</Text>
-                <Text style={styles.username}>{item.Username}</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate("ViewProfile", { item })
+                }
+              >
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.username}>{item.userName}</Text>
               </TouchableOpacity>
             </View>
           )}
