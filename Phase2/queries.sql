@@ -1,22 +1,105 @@
 ---------------------------- 20 QUERIES -------------------------
 
+-- 1
+insert into Users values ('exampleT', '*********', 'Database', 'Systems', 'exampleT.jpg', 'T', 'example of traveler', 'Merced', 'California', 'United States', 2020);
+insert into Users values ('exampleR', '*********', 'Project', 'Phase 2', 'exampleR.jpg', 'R', 'example of resident', 'Merced', 'CA', 'United States', 2020);
+
+-- 2
+insert into Travelers(username, vacation_city, vacation_state_or_prov, vacation_country, start_time, end_time) values ('exampleT', 'vacation city', 'vacation state', 'vacation country', 'start time', 'end time');
+
+-- 3
+insert into Local_Residents(username) values ('exampleR');
+
+-- 4 buddies of specific traveler
+select username
+from Travelers
+where traveler_id in (select uT_traveler_id
+    from buddyOf
+    where uB_traveler_id = (select traveler_id
+        from Travelers
+        where username = 'jenpark')
+    union
+    select uB_traveler_id
+    from buddyOf
+    where uT_traveler_id = (select traveler_id
+        from Travelers
+        where username = 'jenpark'));
+
+-- 5 connections of a traveler
+select username
+from connect C, Local_Residents LR
+where traveler_id = (select traveler_id
+        from Travelers
+        where username = 'jenpark') AND
+    C.resident_id = LR.resident_id;
+
+-- 6 all recommended places for a traveler
+select name
+from Recommended_Places, Travelers
+where username = 'jenpark' AND
+    vacation_city = city AND
+    vacation_state_or_prov = state_or_prov AND
+    vacation_country = country;
+
+-- 7 to find all the people to buddy or connect
+select username
+from Travelers
+where username <> 'jenpark' AND
+    vacation_city = (select vacation_city
+                     from Travelers
+                     where username = 'jenpark') AND
+    vacation_state_or_prov = (select vacation_state_or_prov
+                       from Travelers
+                       where username = 'jenpark') AND
+    vacation_country = (select vacation_country
+                        from Travelers
+                        where username = 'jenpark')
+UNION
+select U.username
+from Travelers T, Users U
+where T.username = 'jenpark' AND
+    T.vacation_city = U.home_city AND
+    T.vacation_state_or_prov = U.home_state_or_prov AND
+    T.vacation_country = U.home_country AND
+    U.status = 'R'
+EXCEPT
+select username
+from Travelers
+where traveler_id in (select uT_traveler_id
+    from buddyOf
+    where uB_traveler_id = (select traveler_id
+        from Travelers
+        where username = 'jenpark')
+    union
+    select uB_traveler_id
+    from buddyOf
+    where uT_traveler_id = (select traveler_id
+        from Travelers
+        where username = 'jenpark'))
+EXCEPT
+select username
+from connect C, Local_Residents LR
+where traveler_id = (select traveler_id
+        from Travelers
+        where username = 'jenpark') AND
+    C.resident_id = LR.resident_id;
+
+-- 8 all events of a specific traveler (determine with who as well)
+select *
+from Events
+where event_id in (select event_id
+    from contain
+    where events_list_id_1 = (select events_list_id
+        from Events_List
+        where username = 'jenpark')
+    UNION
+    select event_id
+    from contain
+    where events_list_id_2 = (select events_list_id
+        from Events_List
+        where username = 'jenpark'));
 
 ---------------------------- POST -------------------------
-
--- insert user into Users table
-    -- insert into Users values (?);
-    insert into Users values ('exampleT', '*********', 'Database', 'Systems', 'image.jpg', 'T', 'example of traveler', 'Merced', 'CA', 'United States', 2020);
-    insert into Users values ('exampleR', '*********', 'Project', 'Phase 2', 'image.jpg', 'R', 'example of resident', 'Merced', 'CA', 'United States', 2020);
-
--- insert into Traveler or Local_Residents table
-    -- insert into Traveler values (?);
-    -- insert into Local_Residents values (?);
-
-    -- if status = 'T'
-    insert into Travelers values ('exampleT', 105, 'Seoul', 'Gangnam', 'South Korea', '2020-08-29', '2020-12-15');
-    
-    -- if status = 'R'
-    insert into Local_Residents values ('exampleR', 203);
 
 -- insert into buddyOf when travelers connect with other travelers
     -- (both ways) insert into buddyOf values (?);
@@ -86,32 +169,10 @@
 
 ---------------------------- GET -------------------------
 
--- select buddies of travelers 
-select uB_username
-from buddyOf
-where uT_username = 'gamjaman';
-
--- get recommended places depending on user vacation location city
-select name, city
-from Recommended_Places, Travelers
-where username = 'gamjaman' AND
-    vacation_city = city AND
-    vacation_st_o_p = state_or_province AND
-    vacation_country = country;
-
--- get all the other travelers who are traveling in the same vacation location of a specific user
-select username
+-- get info of a specific traveler
+select *
 from Travelers
-where username <> 'gamjaman' AND
-    vacation_city = (select vacation_city
-                     from Travelers
-                     where username = 'gamjaman') AND
-    vacation_st_o_p = (select vacation_st_o_p
-                       from Travelers
-                       where username = 'gamjaman') AND
-    vacation_country = (select vacation_country
-                        from Travelers
-                        where username = 'gamjaman');
+where username = 'gamjaman';
 
 -- get all the local residents in vacation location of a specific traveler
 select U.username
