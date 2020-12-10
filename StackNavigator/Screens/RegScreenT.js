@@ -28,6 +28,7 @@ export default class RegformT extends Component {
       vacationCity: "",
       startDate: "",
       endDate: "",
+      status: "T",
     };
   }
 

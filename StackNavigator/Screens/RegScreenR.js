@@ -23,6 +23,7 @@ export default class RegformR extends Component {
       country: "",
       state: "",
       city: "",
+      status: "R",
     };
   }
 
