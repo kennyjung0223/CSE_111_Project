@@ -64,6 +64,15 @@ export default class EditEventScreen extends Component {
             >
               <Text style={styles.btnText}>Confirm</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}
+            >
+              <Text style={styles.btnText}>Delete Event</Text>
+            </TouchableOpacity>
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
@@ -88,6 +97,8 @@ const styles = StyleSheet.create({
   btn: {
     alignItems: "center",
     padding: 20,
+    margin: 10,
+    borderRadius: 6,
     backgroundColor: "#59cbbd",
   },
   btnText: {

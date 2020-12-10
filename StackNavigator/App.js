@@ -4,7 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import LoginScreen from "./Screens/LoginScreen.js";
-import RegScreen from "./Screens/RegScreen.js";
+import RegScreenR from "./Screens/RegScreenR.js";
+import RegScreenT from "./Screens/RegScreenT.js";
 import HomeScreen from "./Screens/HomeScreen.js";
 import AddEventScreen from "./Screens/AddEventScreen.js";
 import EditEventScreen from "./Screens/EditEventScreen.js";
@@ -34,7 +35,8 @@ export default function App() {
         }}
       >
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegScreen} />
+        <Stack.Screen name="RegisterR" component={RegScreenR} />
+        <Stack.Screen name="RegisterT" component={RegScreenT} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="AddEvent" component={AddEventScreen} />
         <Stack.Screen name="EditEvent" component={EditEventScreen} />

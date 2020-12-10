@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 export default function Feed({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Your next trip is in Japan!</Text>
+      <Text style={styles.feedText}>Your next trip is in Japan!</Text>
       <TouchableOpacity
         style={styles.btn}
         onPress={() => navigation.navigate("Recommendations")}
@@ -31,5 +31,9 @@ const styles = StyleSheet.create({
   },
   btntext: {
     color: "#fff",
+  },
+  feedText: {
+    fontFamily: "Savoye LET",
+    fontSize: 34,
   },
 });

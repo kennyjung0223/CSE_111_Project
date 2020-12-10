@@ -12,7 +12,15 @@ import axios from "axios";
 
 export default class Profile extends Component {
   state = {
-    data: [],
+    data: [
+      {
+        name: "Andy Bui",
+        userName: "abui27",
+        age: "21",
+        bio: "Hello",
+        status: "T",
+      },
+    ],
   };
 
   componentDidMount() {
@@ -52,6 +60,9 @@ export default class Profile extends Component {
                 </Text>
                 <Text style={styles.info}>
                   Username: <Text style={styles.userInfo}>{item.userName}</Text>
+                </Text>
+                <Text style={styles.info}>
+                  Age: <Text style={styles.userInfo}>{item.age}</Text>
                 </Text>
                 <Text style={styles.info}>
                   Bio: <Text style={styles.userInfo}>{item.bio}</Text>

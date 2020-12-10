@@ -8,19 +8,19 @@ export default class Calendar extends Component {
     (this.arr = [
       {
         eventLocation: "Mount Fuji",
-        country: "Japan",
+        date: "10/28/2021",
       },
       {
         eventLocation: "Imperial Tokyo",
-        country: "Japan",
+        date: "11/3/2021",
       },
       {
         eventLocation: "Historic Kyoto",
-        country: "Japan",
+        date: "11/4/2021",
       },
       {
         eventLocation: "Osaka Castle",
-        country: "Japan",
+        date: "11/7/2021",
       },
     ]),
       (this.state = {
@@ -61,7 +61,7 @@ export default class Calendar extends Component {
                 }
               >
                 <Text style={styles.eventLocation}>{item.eventLocation}</Text>
-                <Text style={styles.country}>{item.country}</Text>
+                <Text style={styles.country}>{item.date}</Text>
               </TouchableOpacity>
             </View>
           )}

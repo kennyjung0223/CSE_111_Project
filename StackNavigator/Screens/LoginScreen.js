@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TextInput,
+  ScrollView,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
@@ -13,7 +14,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.login}>
-        <Text style={styles.header}>Login</Text>
+        <Text style={styles.header}>Sojourn</Text>
 
         <TextInput
           style={styles.textInput}
@@ -38,9 +39,16 @@ export default function LoginScreen({ navigation }) {
 
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("RegisterT")}
         >
-          <Text style={styles.btntext}>Sign Up</Text>
+          <Text style={styles.btntext}>I'm a New Traveler...</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("RegisterR")}
+        >
+          <Text style={styles.btntext}>I'm a New Resident...</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
@@ -57,12 +65,16 @@ const styles = StyleSheet.create({
     paddingRight: 60,
   },
   header: {
-    fontSize: 24,
+    fontSize: 58,
     color: "#fff",
     paddingBottom: 10,
     marginBottom: 40,
     borderBottomColor: "#199187",
     borderBottomWidth: 1,
+    alignSelf: "center",
+    fontFamily: "Savoye LET",
+    fontWeight: "bold",
+    fontStyle: "italic",
   },
   textInput: {
     alignSelf: "stretch",

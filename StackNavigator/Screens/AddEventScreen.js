@@ -15,7 +15,7 @@ export default class AddEventScreen extends Component {
     super(props);
     this.state = {
       textInput_EventLocation: "",
-      textInput_Country: "",
+      textInput_Date: "",
     };
   }
 
@@ -38,11 +38,9 @@ export default class AddEventScreen extends Component {
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
-                placeholder="Country"
+                placeholder="Date"
                 placeholderTextColor="black"
-                onChangeText={(data) =>
-                  this.setState({ textInput_Country: data })
-                }
+                onChangeText={(data) => this.setState({ textInput_Date: data })}
               />
             </View>
             <TouchableOpacity
@@ -74,8 +72,10 @@ const styles = StyleSheet.create({
   },
   btn: {
     alignItems: "center",
-    padding: 20,
+    padding: 25,
+    marginTop: 15,
     backgroundColor: "#59cbbd",
+    borderRadius: 6,
   },
   btnText: {
     color: "#fff",

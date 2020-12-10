@@ -3,25 +3,28 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default class AddRecommendationScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       textInput_name: "",
-      textInput_location: "",
+      textInput_city: "",
+      textInput_state: "",
+      textInput_country: "",
+      textInput_description: "",
     };
   }
 
   render() {
     return (
-      <ScrollView>
+      <KeyboardAwareScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.container}>
             <Text style={styles.header}>Make a Recommendation</Text>
@@ -36,10 +39,39 @@ export default class AddRecommendationScreen extends Component {
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
-                placeholder="Location"
+                placeholder="City"
+                placeholderTextColor="black"
+                onChangeText={(data) => this.setState({ textInput_city: data })}
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <TextInput
+                style={styles.textInput}
+                placeholder="State"
                 placeholderTextColor="black"
                 onChangeText={(data) =>
-                  this.setState({ textInput_location: data })
+                  this.setState({ textInput_state: data })
+                }
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Country"
+                placeholderTextColor="black"
+                onChangeText={(data) =>
+                  this.setState({ textInput_country: data })
+                }
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Description"
+                placeholderTextColor="black"
+                multiline={true}
+                onChangeText={(data) =>
+                  this.setState({ textInput_description: data })
                 }
               />
             </View>
@@ -53,7 +85,7 @@ export default class AddRecommendationScreen extends Component {
             </TouchableOpacity>
           </View>
         </TouchableWithoutFeedback>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -74,8 +106,10 @@ const styles = StyleSheet.create({
   },
   btn: {
     alignItems: "center",
-    padding: 20,
+    padding: 25,
     backgroundColor: "#59cbbd",
+    borderRadius: 6,
+    marginTop: 90,
   },
   btnText: {
     color: "#fff",
