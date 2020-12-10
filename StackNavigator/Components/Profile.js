@@ -15,7 +15,6 @@ export default class Profile extends Component {
     data: [
       {
         name: "Andy Bui",
-        userName: "abui27",
         age: "21",
         bio: "Hello",
         status: "T",
@@ -59,7 +58,8 @@ export default class Profile extends Component {
                   Name: <Text style={styles.userInfo}>{item.name}</Text>
                 </Text>
                 <Text style={styles.info}>
-                  Username: <Text style={styles.userInfo}>{item.userName}</Text>
+                  Username:{" "}
+                  <Text style={styles.userInfo}>{this.props.username}</Text>
                 </Text>
                 <Text style={styles.info}>
                   Age: <Text style={styles.userInfo}>{item.age}</Text>

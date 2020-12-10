@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,50 +10,109 @@ import {
   Keyboard,
 } from "react-native";
 
-export default function LoginScreen({ navigation }) {
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.login}>
-        <Text style={styles.header}>Sojourn</Text>
+export default class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.login = this.login.bind(this);
+    this.state = {
+      username: "",
+    };
+  }
 
-        <TextInput
-          style={styles.textInput}
-          placeholder="Username"
-          placeholderTextColor="#fff"
-          secureTextEntry={false}
-        />
+  login() {
+    this.props.navigation.navigate("Home", { username: this.state.username });
+    console.log(this.state.username);
+  }
 
-        <TextInput
-          style={styles.textInput}
-          placeholder="Password"
-          placeholderTextColor="#fff"
-          secureTextEntry={true}
-        />
+  render() {
+    return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.login}>
+          <Text style={styles.header}>Sojourn</Text>
 
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Text style={styles.btntext}>Login</Text>
-        </TouchableOpacity>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Username"
+            placeholderTextColor="#fff"
+            value={this.state.username}
+            onChangeText={(username) => this.setState({ username })}
+            secureTextEntry={false}
+          />
 
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.navigate("RegisterT")}
-        >
-          <Text style={styles.btntext}>I'm a New Traveler...</Text>
-        </TouchableOpacity>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Password"
+            placeholderTextColor="#fff"
+            secureTextEntry={true}
+          />
 
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.navigate("RegisterR")}
-        >
-          <Text style={styles.btntext}>I'm a New Resident...</Text>
-        </TouchableOpacity>
-      </View>
-    </TouchableWithoutFeedback>
-  );
+          <TouchableOpacity style={styles.btn} onPress={() => this.login()}>
+            <Text style={styles.btntext}>Login</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate("RegisterT")}
+          >
+            <Text style={styles.btntext}>I'm a New Traveler...</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate("RegisterR")}
+          >
+            <Text style={styles.btntext}>I'm a New Resident...</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
 }
+
+// export default function LoginScreen({ navigation }) {
+//   return (
+//     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+//       <View style={styles.login}>
+//         <Text style={styles.header}>Sojourn</Text>
+
+//         <TextInput
+//           style={styles.textInput}
+//           placeholder="Username"
+//           placeholderTextColor="#fff"
+//           secureTextEntry={false}
+//         />
+
+//         <TextInput
+//           style={styles.textInput}
+//           placeholder="Password"
+//           placeholderTextColor="#fff"
+//           secureTextEntry={true}
+//         />
+
+//         <TouchableOpacity
+//           style={styles.btn}
+//           onPress={() => navigation.navigate("Home")}
+//         >
+//           <Text style={styles.btntext}>Login</Text>
+//         </TouchableOpacity>
+
+//         <TouchableOpacity
+//           style={styles.btn}
+//           onPress={() => navigation.navigate("RegisterT")}
+//         >
+//           <Text style={styles.btntext}>I'm a New Traveler...</Text>
+//         </TouchableOpacity>
+
+//         <TouchableOpacity
+//           style={styles.btn}
+//           onPress={() => navigation.navigate("RegisterR")}
+//         >
+//           <Text style={styles.btntext}>I'm a New Resident...</Text>
+//         </TouchableOpacity>
+//       </View>
+//     </TouchableWithoutFeedback>
+//   );
+// }
 
 const styles = StyleSheet.create({
   login: {
