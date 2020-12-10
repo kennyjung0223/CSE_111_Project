@@ -71,21 +71,6 @@ export default class RegformT extends Component {
 
             <TextInput
               style={styles.textinput}
-              placeholder="Bio"
-              placeholderTextColor="#fff"
-              multiline={true}
-              onChangeText={(data) => this.setState({ bio: data })}
-            />
-
-            <TextInput
-              style={styles.textinput}
-              placeholder="Email"
-              placeholderTextColor="#fff"
-              onChangeText={(data) => this.setState({ email: data })}
-            />
-
-            <TextInput
-              style={styles.textinput}
               placeholder="Country"
               placeholderTextColor="#fff"
               onChangeText={(data) => this.setState({ country: data })}

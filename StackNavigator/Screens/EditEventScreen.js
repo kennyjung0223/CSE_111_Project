@@ -15,7 +15,8 @@ export default class EditEventScreen extends Component {
     super(props);
     this.state = {
       textInput_EventLocation: "",
-      textInput_Country: "",
+      textInput_date: "",
+      textInput_users: "",
     };
   }
 
@@ -48,11 +49,20 @@ export default class EditEventScreen extends Component {
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
-                placeholder="Country"
+                placeholder="Date"
                 placeholderTextColor="black"
-                defaultValue={item.country}
+                defaultValue={item.date}
+                onChangeText={(data) => this.setState({ textInput_date: data })}
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Date"
+                placeholderTextColor="black"
+                defaultValue={item.users}
                 onChangeText={(data) =>
-                  this.setState({ textInput_Country: data })
+                  this.setState({ textInput_users: data })
                 }
               />
             </View>

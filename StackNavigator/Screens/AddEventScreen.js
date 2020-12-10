@@ -16,6 +16,7 @@ export default class AddEventScreen extends Component {
     this.state = {
       textInput_EventLocation: "",
       textInput_Date: "",
+      textInput_Users: "",
     };
   }
 
@@ -41,6 +42,16 @@ export default class AddEventScreen extends Component {
                 placeholder="Date"
                 placeholderTextColor="black"
                 onChangeText={(data) => this.setState({ textInput_Date: data })}
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Who are you going with?"
+                placeholderTextColor="black"
+                onChangeText={(data) =>
+                  this.setState({ textInput_Users: data })
+                }
               />
             </View>
             <TouchableOpacity

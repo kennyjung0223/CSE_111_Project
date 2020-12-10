@@ -18,8 +18,6 @@ export default class RegformR extends Component {
       age: "",
       username: "",
       password: "",
-      bio: "",
-      email: "",
       country: "",
       state: "",
       city: "",
@@ -62,21 +60,6 @@ export default class RegformR extends Component {
               placeholderTextColor="#fff"
               secureTextEntry={true}
               onChangeText={(data) => this.setState({ password: data })}
-            />
-
-            <TextInput
-              style={styles.textinput}
-              placeholder="Bio"
-              placeholderTextColor="#fff"
-              multiline={true}
-              onChangeText={(data) => this.setState({ bio: data })}
-            />
-
-            <TextInput
-              style={styles.textinput}
-              placeholder="Email"
-              placeholderTextColor="#fff"
-              onChangeText={(data) => this.setState({ email: data })}
             />
 
             <TextInput

@@ -9,18 +9,22 @@ export default class Calendar extends Component {
       {
         eventLocation: "Mount Fuji",
         date: "10/28/2021",
+        users: "Lebron James, J.R. Smith",
       },
       {
         eventLocation: "Imperial Tokyo",
         date: "11/3/2021",
+        users: "Lebron James, J.R. Smith",
       },
       {
         eventLocation: "Historic Kyoto",
         date: "11/4/2021",
+        users: "Lebron James, J.R. Smith",
       },
       {
         eventLocation: "Osaka Castle",
         date: "11/7/2021",
+        users: "Lebron James, J.R. Smith",
       },
     ]),
       (this.state = {
@@ -61,7 +65,8 @@ export default class Calendar extends Component {
                 }
               >
                 <Text style={styles.eventLocation}>{item.eventLocation}</Text>
-                <Text style={styles.country}>{item.date}</Text>
+                <Text style={styles.date}>{item.users}</Text>
+                <Text style={styles.date}>{item.date}</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -101,8 +106,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     paddingVertical: 5,
   },
-  country: {
+  date: {
     color: "gray",
+    padding: 2,
   },
   item: {
     paddingHorizontal: 20,
