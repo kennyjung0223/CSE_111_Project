@@ -9,18 +9,22 @@ export default class Calendar extends Component {
       {
         name: "Mount Fuji",
         location: "Fuji-Hakone-Izu National Park",
+        description: "It's a big mountain!",
       },
       {
         name: "Imperial Tokyo",
         location: "Chiyoda City, Tokyo, Japan",
+        description: "It's a old school Japan!",
       },
       {
         name: "Historic Kyoto",
         location: "Kyoto, Japan",
+        description: "It's also old school Japan",
       },
       {
         name: "Osaka Castle",
         location: "Osaka, Japan",
+        description: "It's a castle!",
       },
     ]),
       (this.state = {
@@ -43,10 +47,19 @@ export default class Calendar extends Component {
           extraData={this.state.arrHolder}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
-            <View style={styles.item}>
-              <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.location}>{item.location}</Text>
-            </View>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate("ViewRecommendation", {
+                  item,
+                  userName: userName,
+                })
+              }
+            >
+              <View style={styles.item}>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.location}>{item.location}</Text>
+              </View>
+            </TouchableOpacity>
           )}
         />
 
