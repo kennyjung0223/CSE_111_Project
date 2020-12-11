@@ -13,6 +13,7 @@ import ConnectionsScreen from "./Screens/ConnectionsScreen.js";
 import EditInfoScreen from "./Screens/EditInfoScreen.js";
 import ViewProfileScreen from "./Screens/ViewProfileScreen";
 import AddRecommendationScreen from "./Screens/AddRecommendationScreen";
+import ViewUserScreen from "./Screens/ViewUserScreen";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ export default function App() {
         <Stack.Screen name="ConnectionsList" component={ConnectionsScreen} />
         <Stack.Screen name="EditInfo" component={EditInfoScreen} />
         <Stack.Screen name="ViewProfile" component={ViewProfileScreen} />
+        <Stack.Screen name="ViewUser" component={ViewUserScreen} />
         <Stack.Screen
           name="AddRecommendation"
           component={AddRecommendationScreen}

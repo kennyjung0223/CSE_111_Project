@@ -9,9 +9,7 @@ export default class Feed extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.feedText}>
-          {this.props.username},Your next trip is in Japan!
-        </Text>
+        <Text style={styles.feedText}>Hello, {this.props.username}</Text>
         <TouchableOpacity
           style={styles.btn}
           onPress={() => this.props.navigation.navigate("Recommendations")}
