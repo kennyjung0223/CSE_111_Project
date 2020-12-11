@@ -29,7 +29,7 @@ export default class EditEventScreen extends Component {
   // }
 
   render() {
-    const { item } = this.props.route.params;
+    const { item, userName } = this.props.route.params;
     return (
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

@@ -7,13 +7,18 @@ export default class Connections extends Component {
     super(props);
   }
   render() {
+    const userName = this.props.username;
     return (
       <View style={styles.container}>
         <SwipeCards />
 
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => this.props.navigation.navigate("ConnectionsList")}
+          onPress={() =>
+            this.props.navigation.navigate("ConnectionsList", {
+              userName: userName,
+            })
+          }
         >
           <Text style={styles.text}>View Connections</Text>
         </TouchableOpacity>

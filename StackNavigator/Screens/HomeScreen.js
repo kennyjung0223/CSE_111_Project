@@ -15,7 +15,7 @@ export default class HomeScreen extends Component {
 
   render() {
     const Tab = createBottomTabNavigator();
-    const { username } = this.props.route.params;
+    const { userName } = this.props.route.params;
     return (
       <Tab.Navigator
         initialRouteName="Home"
@@ -42,22 +42,41 @@ export default class HomeScreen extends Component {
           inactiveTintColor: "gray",
         }}
       >
-        <Tab.Screen name="Home" children={() => <Feed username={username} />} />
+        <Tab.Screen
+          name="Home"
+          children={() => (
+            <Feed username={userName} navigation={this.props.navigation} />
+          )}
+        />
         <Tab.Screen
           name="Recommendations"
-          children={() => <Recommendations username={username} />}
+          children={() => (
+            <Recommendations
+              username={userName}
+              navigation={this.props.navigation}
+            />
+          )}
         />
         <Tab.Screen
           name="Connections"
-          children={() => <Connections username={username} />}
+          children={() => (
+            <Connections
+              username={userName}
+              navigation={this.props.navigation}
+            />
+          )}
         />
         <Tab.Screen
           name="Profile"
-          children={() => <Profile username={username} />}
+          children={() => (
+            <Profile username={userName} navigation={this.props.navigation} />
+          )}
         />
         <Tab.Screen
           name="Calendar"
-          children={() => <Calendar username={username} />}
+          children={() => (
+            <Calendar username={userName} navigation={this.props.navigation} />
+          )}
         />
       </Tab.Navigator>
     );

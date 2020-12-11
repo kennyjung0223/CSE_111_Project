@@ -34,6 +34,7 @@ export default class Calendar extends Component {
   }
 
   render() {
+    const userName = this.props.username;
     return (
       <View style={styles.container}>
         <FlatList
@@ -51,7 +52,11 @@ export default class Calendar extends Component {
 
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => this.props.navigation.navigate("AddRecommendation")}
+          onPress={() =>
+            this.props.navigation.navigate("AddRecommendation", {
+              userName: userName,
+            })
+          }
         >
           <Text style={styles.text}>Add a Recommendation!</Text>
         </TouchableOpacity>

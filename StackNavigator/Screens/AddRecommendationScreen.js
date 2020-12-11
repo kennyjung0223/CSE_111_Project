@@ -23,6 +23,7 @@ export default class AddRecommendationScreen extends Component {
   }
 
   render() {
+    const { userName } = this.props.route.params;
     return (
       <KeyboardAwareScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -31,7 +32,7 @@ export default class AddRecommendationScreen extends Component {
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
-                placeholder="Location Name"
+                placeholder="Location"
                 placeholderTextColor="black"
                 onChangeText={(data) => this.setState({ textInput_name: data })}
               />

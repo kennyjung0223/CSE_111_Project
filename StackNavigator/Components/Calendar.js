@@ -48,6 +48,7 @@ export default class Calendar extends Component {
   // };
 
   render() {
+    const userName = this.props.username;
     return (
       <View style={styles.container}>
         <FlatList
@@ -61,6 +62,7 @@ export default class Calendar extends Component {
                 onPress={() =>
                   this.props.navigation.navigate("EditEvent", {
                     item,
+                    userName: userName,
                   })
                 }
               >
@@ -74,7 +76,9 @@ export default class Calendar extends Component {
 
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => this.props.navigation.navigate("AddEvent")}
+          onPress={() =>
+            this.props.navigation.navigate("AddEvent", { userName: userName })
+          }
         >
           <Text style={styles.text}>Add Event</Text>
         </TouchableOpacity>

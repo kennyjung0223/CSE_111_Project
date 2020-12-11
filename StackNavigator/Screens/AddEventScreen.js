@@ -21,6 +21,7 @@ export default class AddEventScreen extends Component {
   }
 
   render() {
+    const { userName } = this.props.route.params;
     return (
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

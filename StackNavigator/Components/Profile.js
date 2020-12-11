@@ -38,6 +38,7 @@ export default class Profile extends Component {
   }
 
   render() {
+    const userName = this.props.username;
     return (
       <View style={styles.container}>
         <FlatList
@@ -51,7 +52,10 @@ export default class Profile extends Component {
               />
               <TouchableOpacity
                 onPress={() =>
-                  this.props.navigation.navigate("EditInfo", { item })
+                  this.props.navigation.navigate("EditInfo", {
+                    item,
+                    userName: userName,
+                  })
                 }
               >
                 <Text style={styles.info}>

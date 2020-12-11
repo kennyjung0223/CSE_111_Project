@@ -20,7 +20,7 @@ export default class LoginScreen extends Component {
   }
 
   login() {
-    this.props.navigation.navigate("Home", { username: this.state.username });
+    this.props.navigation.navigate("Home", { userName: this.state.username });
     console.log(this.state.username);
   }
 

@@ -16,7 +16,7 @@ export default class ViewProfileScreen extends Component {
   }
 
   render() {
-    const { item } = this.props.route.params;
+    const { item, userName } = this.props.route.params;
     return (
       <ScrollView>
         <View style={styles.container}>

@@ -19,24 +19,28 @@ export default class ConnectionsScreen extends Component {
         name: "Andy Bui",
         userName: "abui27",
         bio: "my bio",
+        age: "21",
         status: "T",
       },
       {
         name: "J.R. Smith",
         userName: "JR21",
         bio: "my bio",
+        age: "21",
         status: "T",
       },
       {
         name: "Kenny Jung",
         userName: "GamjaMan",
         bio: "my bio",
+        age: "21",
         status: "T",
       },
       {
         name: "Lebron James",
         userName: "KingJames",
         bio: "my bio",
+        age: "21",
         status: "T",
       },
     ]),
@@ -51,6 +55,7 @@ export default class ConnectionsScreen extends Component {
   }
 
   render() {
+    const { userName } = this.props.route.params;
     return (
       <View>
         <FlatList
@@ -62,7 +67,10 @@ export default class ConnectionsScreen extends Component {
             <View style={styles.item}>
               <TouchableOpacity
                 onPress={() =>
-                  this.props.navigation.navigate("ViewProfile", { item })
+                  this.props.navigation.navigate("ViewProfile", {
+                    item,
+                    userName: userName,
+                  })
                 }
               >
                 <Text style={styles.name}>{item.name}</Text>
