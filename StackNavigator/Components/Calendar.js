@@ -1,74 +1,58 @@
 import React, { Component } from "react";
 import { StyleSheet, FlatList, Text, View, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import axios from 'axios';
 
 export default class Calendar extends Component {
   constructor(props) {
     super(props);
-    (this.arr = [
-      {
-        eventLocation: "Mount Fuji",
-        date: "10/28/2021",
-        users: "Lebron James, J.R. Smith",
-      },
-      {
-        eventLocation: "Imperial Tokyo",
-        date: "11/3/2021",
-        users: "Lebron James, J.R. Smith",
-      },
-      {
-        eventLocation: "Historic Kyoto",
-        date: "11/4/2021",
-        users: "Lebron James, J.R. Smith",
-      },
-      {
-        eventLocation: "Osaka Castle",
-        date: "11/7/2021",
-        users: "Lebron James, J.R. Smith",
-      },
-    ]),
-      (this.state = {
-        arrHolder: [],
-        // textInput_Destination: "",
-        // textInput_Dates: "",
-      });
+  }
+  state = {
+    data: []
   }
 
   componentDidMount() {
-    // Copies this.arr into arrHolder
-    this.setState({ arrHolder: [...this.arr] });
+    this.fetchEvents();
   }
 
-  // returnData(eventLocation, country) {
-  //   this.setState({ arr: { eventLocation: eventLocation, country: country } });
+  // getOtherUserEventID() {
+  //   this.props.navigation.navigate("EditEvent", {other_user_event_id})
+  //   console.log(other_user_event_id)
   // }
 
-  // onEdit = (eventLocation, country) => {
-  //   this.setState({ arr: { eventLocation: eventLocation, country: country } });
-  // };
+  fetchEvents() {
+    axios.get(`http://localhost:3000/events/${this.props.username}`)
+    .then(res => {
+      this.setState({data: res.data});
+    })
+    .catch(err => {
+      console.error(error);
+    })
+  }
 
   render() {
-    const userName = this.props.username;
+    const username = this.props.username;
     return (
       <View style={styles.container}>
         <FlatList
           style={styles.list}
-          data={this.state.arrHolder}
-          extraData={this.state.arrHolder}
-          keyExtractor={(item) => item.eventLocation}
+          data={this.state.data}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.item}>
               <TouchableOpacity
                 onPress={() =>
+                  // this.props.navigation.navigate("EditEvent", {other_user_event_id, item})
                   this.props.navigation.navigate("EditEvent", {
                     item,
-                    userName: userName,
+                    username: username,
                   })
                 }
               >
-                <Text style={styles.eventLocation}>{item.eventLocation}</Text>
-                <Text style={styles.date}>{item.users}</Text>
-                <Text style={styles.date}>{item.date}</Text>
+                <Text style={styles.eventLocation}>{item.location}</Text>
+                <Text style={styles.date}>{item.username}</Text>
+                <Text style={styles.date}>{item.event_time}</Text>
+                {/* <Text style={styles.date}>{item.other_user_event_id}</Text> */}
               </TouchableOpacity>
             </View>
           )}
@@ -77,7 +61,7 @@ export default class Calendar extends Component {
         <TouchableOpacity
           style={styles.btn}
           onPress={() =>
-            this.props.navigation.navigate("AddEvent", { userName: userName })
+            this.props.navigation.navigate("AddEvent", { username: username })
           }
         >
           <Text style={styles.text}>Add Event</Text>
@@ -86,6 +70,82 @@ export default class Calendar extends Component {
     );
   }
 }
+
+// export default class Calendar extends Component {
+//   constructor(props) {
+//     super(props);
+//     (this.arr = [
+//       {
+//         eventLocation: "Mount Fuji",
+//         country: "Japan",
+//       },
+//       {
+//         eventLocation: "Imperial Tokyo",
+//         country: "Japan",
+//       },
+//       {
+//         eventLocation: "Historic Kyoto",
+//         country: "Japan",
+//       },
+//       {
+//         eventLocation: "Osaka Castle",
+//         country: "Japan",
+//       },
+//     ]),
+//       (this.state = {
+//         arrHolder: [],
+//         // textInput_Destination: "",
+//         // textInput_Dates: "",
+//       });
+//   }
+
+//   componentDidMount() {
+//     // Copies this.arr into arrHolder
+//     this.setState({ arrHolder: [...this.arr] });
+//   }
+
+//   // returnData(eventLocation, country) {
+//   //   this.setState({ arr: { eventLocation: eventLocation, country: country } });
+//   // }
+
+//   // onEdit = (eventLocation, country) => {
+//   //   this.setState({ arr: { eventLocation: eventLocation, country: country } });
+//   // };
+
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <FlatList
+//           style={styles.list}
+//           data={this.state.arrHolder}
+//           extraData={this.state.arrHolder}
+//           keyExtractor={(item) => item.eventLocation}
+//           renderItem={({ item }) => (
+//             <View style={styles.item}>
+//               <TouchableOpacity
+//                 onPress={() =>
+//                   this.props.navigation.navigate("EditEvent", {
+//                     item,
+//                   })
+//                 }
+//               >
+//                 <Text style={styles.eventLocation}>{item.eventLocation}</Text>
+//                 <Text style={styles.country}>{item.country}</Text>
+//               </TouchableOpacity>
+//             </View>
+//           )}
+//         />
+
+//         <TouchableOpacity
+//           style={styles.btn}
+//           onPress={() => this.props.navigation.navigate("AddEvent")}
+//         >
+//           <Text style={styles.text}>Add Event</Text>
+//         </TouchableOpacity>
+//       </View>
+//     );
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {

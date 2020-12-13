@@ -9,20 +9,43 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import axios from "axios";
 
 export default class EditInfoScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      textInput_Name: "",
-      textInput_Username: "",
-      textInput_Bio: "",
-      textInput_Status: "",
-    };
+    // this.state = {
+    //   textInput_Name: "",
+    //   textInput_username: "",
+    //   textInput_Bio: "",
+    //   textInput_Status: "",
+    // };
+  }
+
+  state = {
+    textInput_Name: "",
+    textInput_username: "",
+    textInput_Bio: "",
+    textInput_Status: "",
+  }
+
+  editProfile = () => {
+    const { username } = this.props.route.params;
+
+    console.log(this.state.textInput_Bio);
+
+    axios.put(`http://localhost:3000/edit_profile/${username}/${this.state.textInput_Bio}`)
+    .then(res => {
+      console.log(res);
+    })
+
+    this.props.navigation.goBack()
   }
 
   render() {
-    const { item, userName } = this.props.route.params;
+    const { item, username } = this.props.route.params;
+    // const { fullname } = { ...item.name.toString(), ...item.surname.toString()};
+    const fullname = item.name.toString() + " " + item.surname.toString();
     return (
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -33,18 +56,18 @@ export default class EditInfoScreen extends Component {
                 style={styles.textInput}
                 placeholder="Name"
                 placeholderTextColor="black"
-                defaultValue={item.name}
+                defaultValue={fullname}
                 onChangeText={(data) => this.setState({ textInput_Name: data })}
               />
             </View>
             <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
-                placeholder="Username"
+                placeholder="username"
                 placeholderTextColor="black"
-                defaultValue={item.userName}
+                defaultValue={item.username}
                 onChangeText={(data) =>
-                  this.setState({ textInput_Username: data })
+                  this.setState({ textInput_username: data })
                 }
               />
             </View>
@@ -58,7 +81,7 @@ export default class EditInfoScreen extends Component {
                 onChangeText={(data) => this.setState({ textInput_Bio: data })}
               />
             </View>
-            <View style={styles.textContainer}>
+            {/* <View style={styles.textContainer}>
               <TextInput
                 style={styles.textInput}
                 placeholder="Status"
@@ -68,10 +91,10 @@ export default class EditInfoScreen extends Component {
                   this.setState({ textInput_Status: data })
                 }
               />
-            </View>
+            </View> */}
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => this.props.navigation.goBack()}
+              onPress={this.editProfile}
             >
               <Text style={styles.btnText}>Confirm</Text>
             </TouchableOpacity>

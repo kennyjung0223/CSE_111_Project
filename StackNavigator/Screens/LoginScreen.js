@@ -20,8 +20,7 @@ export default class LoginScreen extends Component {
   }
 
   login() {
-    this.props.navigation.navigate("Home", { userName: this.state.username });
-    console.log(this.state.username);
+    this.props.navigation.navigate("Home", { username: this.state.username });
   }
 
   render() {
@@ -77,7 +76,7 @@ export default class LoginScreen extends Component {
 
 //         <TextInput
 //           style={styles.textInput}
-//           placeholder="Username"
+//           placeholder="username"
 //           placeholderTextColor="#fff"
 //           secureTextEntry={false}
 //         />

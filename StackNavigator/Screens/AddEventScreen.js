@@ -9,19 +9,45 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import axios from 'axios';
 
 export default class AddEventScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      textInput_EventLocation: "",
-      textInput_Date: "",
-      textInput_Users: "",
-    };
+    // this.state = {
+    //   textInput_EventLocation: "",
+    //   textInput_Date: "",
+    //   textInput_Users: "",
+    // };
+  }
+
+  state = {
+    textInput_EventLocation: "",
+    textInput_Date: "",
+    textInput_User: ""
+  }
+
+  handleEvent = event => {
+
+    const username = this.props.route.params;
+
+    const event_entry = {
+      event_location: this.state.textInput_EventLocation,
+      date: this.state.textInput_Date
+    }
+
+    console.log(event_entry);
+
+    axios.post(`http://localhost:3000/add_event/${event_entry.event_location}/${event_entry.date}/${username.username}/${this.state.textInput_User}`, event_entry)
+    .then(res => {
+      console.log(res);
+    })
+
+    this.props.navigation.goBack()
   }
 
   render() {
-    const { userName } = this.props.route.params;
+    const { username } = this.props.route.params;
     return (
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -45,19 +71,19 @@ export default class AddEventScreen extends Component {
                 onChangeText={(data) => this.setState({ textInput_Date: data })}
               />
             </View>
-            <View style={styles.textContainer}>
+            <View style={styles.textContainer2}>
               <TextInput
                 style={styles.textInput}
                 placeholder="Who are you going with?"
                 placeholderTextColor="black"
                 onChangeText={(data) =>
-                  this.setState({ textInput_Users: data })
+                  this.setState({ textInput_User: data })
                 }
               />
             </View>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => this.props.navigation.goBack()}
+              onPress={this.handleEvent}
             >
               <Text style={styles.btnText}>Confirm</Text>
             </TouchableOpacity>

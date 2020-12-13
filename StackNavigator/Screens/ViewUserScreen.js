@@ -9,22 +9,45 @@ import {
   Keyboard,
   TouchableOpacity,
 } from "react-native";
+import axios from 'axios';
 
 export default class ViewUserScreen extends Component {
   constructor(props) {
     super(props);
   }
 
+  state = {
+    textInput_EventLocation: "",
+    textInput_Date: "",
+    textInput_User: ""
+  }
+
+  connectUser = event => {
+
+    const { item, username } = this.props.route.params;
+
+    const handleConnectUser = {
+      other_username: item.username
+    }
+
+    axios.post(`http://localhost:3000/connect_buddy/${username}/${handleConnectUser.other_username}`, handleConnectUser)
+    .then(res => {
+      console.log(res);
+    })
+
+    this.props.navigation.goBack()
+  }
+
   render() {
-    const { item, userName } = this.props.route.params;
+    const { item, username } = this.props.route.params;
     return (
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.header}>{item.userName}</Text>
+          <Text style={styles.header}>{item.username}</Text>
           <View style={styles.textContainer}>
             <Text style={styles.textInput}>
               <Text style={styles.btnText}>Name: </Text>
-              {item.name}
+              {item.name} {item.surname}
             </Text>
           </View>
           <View style={styles.textContainer}>
@@ -42,9 +65,9 @@ export default class ViewUserScreen extends Component {
         </View>
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => this.props.navigation.goBack()}
+          onPress={this.connectUser}
         >
-          <Text style={styles.text}>Add {item.userName}</Text>
+          <Text style={styles.text}>Add {item.username}</Text>
         </TouchableOpacity>
       </ScrollView>
     );

@@ -10,79 +10,112 @@ import {
   Keyboard,
   FlatList,
 } from "react-native";
+import axios from 'axios';
 
 export default class ConnectionsScreen extends Component {
   constructor(props) {
-    super(props);
-    (this.arr = [
-      {
-        name: "Andy Bui",
-        userName: "abui27",
-        bio: "my bio",
-        age: "21",
-        status: "T",
-      },
-      {
-        name: "J.R. Smith",
-        userName: "JR21",
-        bio: "my bio",
-        age: "21",
-        status: "T",
-      },
-      {
-        name: "Kenny Jung",
-        userName: "GamjaMan",
-        bio: "my bio",
-        age: "21",
-        status: "T",
-      },
-      {
-        name: "Lebron James",
-        userName: "KingJames",
-        bio: "my bio",
-        age: "21",
-        status: "T",
-      },
-    ]),
-      (this.state = {
-        arrHolder: [],
-      });
+    super(props)
+  }
+  state = {
+    data: []
   }
 
   componentDidMount() {
-    // Copies this.arr into arrHolder
-    this.setState({ arrHolder: [...this.arr] });
+    this.fetchConnections();
+  }
+
+  fetchConnections = () => {
+    const username = this.props.route.params.username;
+
+    console.log(username);
+
+    axios.get(`http://localhost:3000/connections/${username}`)
+    .then(res => {
+      this.setState({data: res.data});
+    })
+    .catch(err => {
+      console.error(err);
+    })
   }
 
   render() {
-    const { userName } = this.props.route.params;
+    const { username } = this.props.route.params;
     return (
-      <View>
-        <FlatList
-          style={styles.list}
-          data={this.state.arrHolder}
-          extraData={this.state.arrHolder}
-          keyExtractor={(item) => item.userName}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-              <TouchableOpacity
-                onPress={() =>
-                  this.props.navigation.navigate("ViewProfile", {
-                    item,
-                    userName: userName,
-                  })
-                }
-              >
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.username}>{item.userName}</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
+      <View style={styles.container}>
+          <FlatList
+            style = {styles.list}
+            data = {this.state.data}
+            keyExtractor = {(item, index) => index.toString()}
+            renderItem = {({ item }) => 
+              <View style={styles.item}>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate("ViewProfile", { item, username: username})
+                  }
+                >
+                  <Text style={styles.name}>{item.name} {item.surname}</Text>
+                  <Text style={styles.username}>{item.username}</Text>
+                </TouchableOpacity>
+              </View>
+            }
+          />
       </View>
-    );
+    )
   }
 }
+
+// export default class ConnectionsScreen extends Component {
+//   constructor(props) {
+//     super(props);
+//     (this.arr = [
+//       {
+//         Name: "Andy Bui",
+//         Username: "abui27",
+//       },
+//       {
+//         Name: "J.R. Smith",
+//         Username: "JR21",
+//       },
+//       {
+//         Name: "Kenny Jung",
+//         Username: "GamjaMan",
+//       },
+//       {
+//         Name: "Lebron James",
+//         Username: "KingJames",
+//       },
+//     ]),
+//       (this.state = {
+//         arrHolder: [],
+//       });
+//   }
+
+//   componentDidMount() {
+//     // Copies this.arr into arrHolder
+//     this.setState({ arrHolder: [...this.arr] });
+//   }
+
+//   render() {
+//     return (
+//       <View>
+//         <FlatList
+//           style={styles.list}
+//           data={this.state.arrHolder}
+//           extraData={this.state.arrHolder}
+//           keyExtractor={(item) => item.Username}
+//           renderItem={({ item }) => (
+//             <View style={styles.item}>
+//               <TouchableOpacity>
+//                 <Text style={styles.name}>{item.Name}</Text>
+//                 <Text style={styles.username}>{item.Username}</Text>
+//               </TouchableOpacity>
+//             </View>
+//           )}
+//         />
+//       </View>
+//     );
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {

@@ -10,33 +10,27 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default class ViewProfileScreen extends Component {
+export default class AboutRecommendationScreen extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { item, username } = this.props.route.params;
+    const { item, userName } = this.props.route.params;
     return (
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.header}>{item.username}</Text>
+          <Text style={styles.header}>{item.name}</Text>
           <View style={styles.textContainer}>
             <Text style={styles.textInput}>
-              <Text style={styles.btnText}>Name: </Text>
-              {item.name} {item.surname}
+              <Text style={styles.btnText}>Location </Text>
+              {item.city}, {item.country}
             </Text>
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.textInput}>
-              <Text style={styles.btnText}>Bio: </Text>
-              {item.bio}
-            </Text>
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.textInput}>
-              <Text style={styles.btnText}>Status: </Text>
-              {item.status}
+              <Text style={styles.btnText}>Description: </Text>
+              {item.description}
             </Text>
           </View>
         </View>

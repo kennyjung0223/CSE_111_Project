@@ -14,9 +14,9 @@ create table Users (
     password char(32) not null,
     name char(32) not null,
     surname char(32) not null,
-    profile_picture char(32) not null,
+    profile_picture char(32) not null default('avatar.jpg'),
     status char(1) not null,
-    bio char(200) not null,
+    bio char(200) not null default('Hello! This is my bio!'),
     home_city char(32) not null,
     home_state_or_prov char(32) default('n/a'),
     home_country char(32) not null,
@@ -25,7 +25,7 @@ create table Users (
 
 create table Travelers (
     username char(32) unique,
-    traveler_id INTEGER primary key auto_increment,
+    traveler_id INTEGER primary key,
     vacation_city char(32) not null,
     vacation_state_or_prov char(32) default('n/a'),
     vacation_country char(32) not null,
@@ -35,7 +35,7 @@ create table Travelers (
 
 create table Local_Residents (
     username char(32) unique,
-    resident_id INTEGER primary key auto_increment
+    resident_id INTEGER primary key
 );
 
 create table Recommended_Places (
@@ -48,11 +48,11 @@ create table Recommended_Places (
 
 create table Events_List (
     username char(32) unique,
-    events_list_id INTEGER primary key auto_increment
+    events_list_id INTEGER primary key
 );
 
 create table Events (
-    event_id INTEGER primary key auto_increment,
+    event_id INTEGER primary key,
     event_time datetime,
     location char(32) not null
 );
@@ -73,7 +73,7 @@ create table recommend (
 );
 
 create table contain (
-    event_id INTEGER primary key auto_increment,
+    event_id INTEGER primary key,
     events_list_id_1 INTEGER,
     events_list_id_2 INTEGER
 );

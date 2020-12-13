@@ -33,7 +33,31 @@ where traveler_id = (select traveler_id
         where username = 'jenpark') AND
     C.resident_id = LR.resident_id;
 
--- 6 all recommended places for a traveler
+-- 6 both buddies and connections
+select username, name, surname
+from Users
+where username in (select username
+    from Travelers
+    where traveler_id in (select uT_traveler_id
+        from buddyOf
+        where uB_traveler_id = (select traveler_id
+            from Travelers
+            where username = 'jenpark')
+        union
+        select uB_traveler_id
+        from buddyOf
+        where uT_traveler_id = (select traveler_id
+            from Travelers
+            where username = 'jenpark'))
+    union
+    select username
+    from connect C, Local_Residents LR
+    where traveler_id = (select traveler_id
+            from Travelers
+            where username = 'jenpark') AND
+        C.resident_id = LR.resident_id);
+
+-- 7 all recommended places for a traveler
 select name
 from Recommended_Places, Travelers
 where username = 'jenpark' AND
@@ -41,7 +65,73 @@ where username = 'jenpark' AND
     vacation_state_or_prov = state_or_prov AND
     vacation_country = country;
 
--- 7 to find all the people to buddy or connect
+-- 8 to find all the people to buddy or connect
+select T1.username as username, name, surname
+from (select username
+    from Travelers
+    where username <> 'jenpark' AND
+        vacation_city = (select vacation_city
+                        from Travelers
+                        where username = 'jenpark') AND
+        vacation_state_or_prov = (select vacation_state_or_prov
+                        from Travelers
+                        where username = 'jenpark') AND
+        vacation_country = (select vacation_country
+                            from Travelers
+                            where username = 'jenpark')
+    UNION
+    select U.username
+    from Travelers T, Users U
+    where T.username = 'jenpark' AND
+        T.vacation_city = U.home_city AND
+        T.vacation_state_or_prov = U.home_state_or_prov AND
+        T.vacation_country = U.home_country AND
+        U.status = 'R') as T1, Users
+where T1.username not in (select username
+    from Travelers
+    where traveler_id in (select uT_traveler_id
+        from buddyOf
+        where uB_traveler_id = (select traveler_id
+            from Travelers
+            where username = 'jenpark')
+        union
+        select uB_traveler_id
+        from buddyOf
+        where uT_traveler_id = (select traveler_id
+            from Travelers
+            where username = 'jenpark'))
+    UNION
+    select username
+    from connect C, Local_Residents LR
+    where traveler_id = (select traveler_id
+            from Travelers
+            where username = 'jenpark') AND
+        C.resident_id = LR.resident_id) AND
+    T1.username = Users.username;
+
+
+select T.username as username, name, surname
+from (select T.username
+    from Travelers T, Users U
+    where U.username = 'pinkbean' AND
+        T.vacation_city = U.home_city AND
+        T.vacation_state_or_prov = U.home_state_or_prov AND
+        T.vacation_country = U.home_country AND
+        U.status = 'R' AND
+        U.username not in (select T.username
+            from Travelers T, connect C
+            where C.resident_id = (select resident_id
+                from Local_Residents
+                where username = 'pinkbean') AND
+                C.traveler_id = T.traveler_id)) as T, Users
+where T.username = Users.username;
+
+
+select traveler_id
+from Travelers
+where username = 'jenpark';
+
+
 select username
 from Travelers
 where username <> 'jenpark' AND
@@ -85,19 +175,84 @@ where traveler_id = (select traveler_id
     C.resident_id = LR.resident_id;
 
 -- 8 all events of a specific traveler (determine with who as well)
-select *
-from Events
-where event_id in (select event_id
+select location, event_time, username
+from (select event_id, events_list_id_2 as other_user_id
     from contain
     where events_list_id_1 = (select events_list_id
         from Events_List
         where username = 'jenpark')
-    UNION
-    select event_id
+    union 
+    select event_id, events_list_id_1 as other_user_id
     from contain
     where events_list_id_2 = (select events_list_id
         from Events_List
-        where username = 'jenpark'));
+        where username = 'jenpark')) as T, Events, Events_List
+where T.event_id = Events.event_id AND
+    T.other_user_id = Events_List.events_list_id;
+
+-- 9 insert event
+-- insert into Events(event_time, location) values (${req.params.event_time}, ${req.params.location});
+
+insert into contain(events_list_id_1, events_list_id_2) values (select events_list_id
+                                                                from Events_List
+                                                                where username = 'jenpark',
+                                                                select events_list_id
+                                                                from Events_List
+                                                                where username = other person);
+
+-- 10 register for a new user (done)
+insert into Users values ()...;
+
+-- 11 add traveler (done)
+insert into Travelers values ()...;
+
+-- 12 add local residents (done)
+insert into Local_Residents values ()...;
+
+-- 13 add recommendation (done)
+insert into Recommendations values ()...;
+
+insert into recommend values ()...;
+
+-- 14 connect as buddies
+insert into buddyOf values ()...;
+
+-- 15 connect as connections
+insert into connect values ()....;
+
+-- 16 update profile
+update Users set ...;
+
+-- 17 update Event
+update Events set ...;
+
+-- 18 delete Event
+delete from Events where ...;
+
+-- 19 places residents recommended
+select name
+from recommend, Local_Residents
+where recommend.resident_id = Local_Residents.resident_id AND
+    Local_Residents.username = 'applesamsung';
+
+select T.event_id
+from (select event_id
+    from Events
+    where event_time = '2020-11-10' AND
+        location = 'Lotte World') as T, contain
+where T.event_id = contain.event_id AND
+    events_list_id_1 in (select events_list_id
+        from Events_List
+        where username = 'jenpark' or username = 'moneyman') AND
+    events_list_id_2 in (select events_list_id
+        from Events_List
+        where username = 'jenpark' or username = 'moneyman')
+
+
+select events_list_id
+from Events_List
+where username = 'jenpark'
+
 
 ---------------------------- POST -------------------------
 
@@ -203,3 +358,24 @@ where username = 'gamjaman' AND
     username in (select connection_user
                 from Connections C2
                 where username = C1.connection_user);
+
+
+select location, event_time
+from contain C, Events E
+where C.event_id = E.event_id
+
+select T.event_id, location, event_time, username
+from (select event_id, events_list_id_2 as other_user_id
+    from contain
+    where events_list_id_1 = (select events_list_id
+        from Events_List
+        where username = 'jenpark')
+    union 
+    select event_id, events_list_id_1 as other_user_id
+    from contain
+    where events_list_id_2 = (select events_list_id
+        from Events_List
+        where username = 'jenpark')) as T, Events, Events_List
+where T.event_id = Events.event_id AND
+    T.other_user_id = Events_List.events_list_id
+order by event_time;

@@ -15,7 +15,7 @@ export default class HomeScreen extends Component {
 
   render() {
     const Tab = createBottomTabNavigator();
-    const { userName } = this.props.route.params;
+    const { username } = this.props.route.params;
     return (
       <Tab.Navigator
         initialRouteName="Home"
@@ -31,7 +31,7 @@ export default class HomeScreen extends Component {
               iconName = "md-person-add";
             } else if (route.name === "Profile") {
               iconName = "md-person";
-            } else if (route.name === "Calendar") {
+            } else if (route.name === "Events List") {
               iconName = "md-airplane";
             }
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -45,14 +45,14 @@ export default class HomeScreen extends Component {
         <Tab.Screen
           name="Home"
           children={() => (
-            <Feed username={userName} navigation={this.props.navigation} />
+            <Feed username={username} navigation={this.props.navigation} />
           )}
         />
         <Tab.Screen
           name="Recommendations"
           children={() => (
             <Recommendations
-              username={userName}
+              username={username}
               navigation={this.props.navigation}
             />
           )}
@@ -61,7 +61,7 @@ export default class HomeScreen extends Component {
           name="Connections"
           children={() => (
             <Connections
-              username={userName}
+              username={username}
               navigation={this.props.navigation}
             />
           )}
@@ -69,13 +69,13 @@ export default class HomeScreen extends Component {
         <Tab.Screen
           name="Profile"
           children={() => (
-            <Profile username={userName} navigation={this.props.navigation} />
+            <Profile username={username} navigation={this.props.navigation} />
           )}
         />
         <Tab.Screen
-          name="Calendar"
+          name="Events List"
           children={() => (
-            <Calendar username={userName} navigation={this.props.navigation} />
+            <Calendar username={username} navigation={this.props.navigation} />
           )}
         />
       </Tab.Navigator>

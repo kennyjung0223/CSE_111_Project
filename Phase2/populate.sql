@@ -22,6 +22,8 @@ insert into Users values ('tomandjohnson', 'stocks', 'Thomas', 'Johnson', 'toman
 insert into Users values ('emilyghoul', 'tokyoghoul', 'Emily', 'Mei', 'emilyghoul.jpg', 'T', 'Youtuber and vlogger', 'Los Angeles', 'California', 'United States', 24);
 insert into Users values ('dlwlrma', 'lostchild', 'Jieun', 'Lee', 'dlwlrma.jpg', 'T', 'kpop singer and actress', 'Seoul', 'Gyeonggi', 'South Korea', 27);
 insert into Users values ('fruitsalad', 'freshjuice', 'Isabella', 'Rodriguez', 'fruitsalad.jpg', 'T', 'From Miami, Florida where I own a juice store', 'Miami', 'Florida', 'United States', 30);
+insert into Users values ('waterbottle', 'water', 'Tim', 'Cook', 'waterbottle.jpg', 'T', 'CEO of Apple', 'Cupertino', 'California', 'United States', 60);
+insert into Users values ('pinkbean', 'maplestory', 'Jaewon', 'Jung', 'pinkbean.jpg', 'R', 'avid Maplestory gamer', 'Seoul', 'Gyeonggi', 'South Korea', 24);
 
 insert into Travelers values ('moneyman', 10001, 'Seoul', 'Gyeonggi', 'South Korea',	'2020-10-22', '2020-11-18');
 insert into Travelers(username, vacation_city, vacation_state_or_prov, vacation_country, start_time, end_time) values ('kingjames', 'Tokyo', 'n/a', 'Japan', '2020-10-22', '2020-11-18');
@@ -40,6 +42,7 @@ insert into Travelers(username, vacation_city, vacation_state_or_prov, vacation_
 insert into Travelers(username, vacation_city, vacation_state_or_prov, vacation_country, start_time, end_time) values ('emilyghoul', 'Seoul', 'Gyeonggi', 'South Korea', '2020-10-27', '2020-11-30');
 insert into Travelers(username, vacation_city, vacation_state_or_prov, vacation_country, start_time, end_time) values ('dlwlrma', 'Paris', 'n/a', 'France', '2021-05-01', '2021-06-17');
 insert into Travelers(username, vacation_city, vacation_state_or_prov, vacation_country, start_time, end_time) values ('fruitsalad', 'Tokyo', 'n/a', 'Japan', '2020-11-28', '2020-12-20');
+insert into Travelers(username, vacation_city, vacation_state_or_prov, vacation_country, start_time, end_time) values ('waterbottle', 'Seoul', 'Gyeonggi', 'South Korea', '2020-11-30', '2020-12-18');
 
 insert into Local_Residents values ('applesamsung', 20001);
 insert into Local_Residents(username) values ('hondatoyota');                                                                                                                                                          
@@ -48,6 +51,7 @@ insert into Local_Residents(username) values ('celinefrancais');
 insert into Local_Residents(username) values ('neymarsilva');
 insert into Local_Residents(username) values ('sbell');
 insert into Local_Residents(username) values ('mburk');
+insert into Local_Residents(username) values ('pinkbean');
 
 insert into Recommended_Places values ('N Seoul Tower', 'Seoul', 'Gyeonggi', 'South Korea', 'Considered as the main attraction for tourists in South Korea. It has a lot of attractions such as the view, lighting of the tower, love padlocks, wishing pond and observatory, and more');
 insert into Recommended_Places values ('Lotte World', 'Seoul', 'Gyeonggi', 'South Korea', 'Lotte World is essentially Disneyland in South Korea!');

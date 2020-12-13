@@ -12,14 +12,7 @@ import axios from "axios";
 
 export default class Profile extends Component {
   state = {
-    data: [
-      {
-        name: "Andy Bui",
-        age: "21",
-        bio: "Hello",
-        status: "T",
-      },
-    ],
+    data: []
   };
 
   componentDidMount() {
@@ -27,18 +20,17 @@ export default class Profile extends Component {
   }
 
   fetchProfileData() {
-    axios
-      .get("http://192.168.1.29:3000/user/moneyman")
-      .then((res) => {
-        this.setState({ data: res.data });
-      })
-      .catch((err) => {
-        console.error(error);
-      });
+    axios.get(`http://localhost:3000/user/${this.props.username}`)
+    .then(res => {
+      this.setState({data: res.data});
+    })
+    .catch(err => {
+      console.error(error);
+    })
   }
 
   render() {
-    const userName = this.props.username;
+    const username = this.props.username;
     return (
       <View style={styles.container}>
         <FlatList
@@ -54,16 +46,16 @@ export default class Profile extends Component {
                 onPress={() =>
                   this.props.navigation.navigate("EditInfo", {
                     item,
-                    userName: userName,
+                    username: username,
                   })
                 }
               >
                 <Text style={styles.info}>
-                  Name: <Text style={styles.userInfo}>{item.name}</Text>
+                  Name: <Text style={styles.userInfo}>{item.name} {item.surname}</Text>
                 </Text>
                 <Text style={styles.info}>
                   Username:{" "}
-                  <Text style={styles.userInfo}>{this.props.username}</Text>
+                  <Text style={styles.userInfo}>{username}</Text>
                 </Text>
                 <Text style={styles.info}>
                   Age: <Text style={styles.userInfo}>{item.age}</Text>

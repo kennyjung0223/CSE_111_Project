@@ -9,20 +9,51 @@ import {
   Keyboard,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios from 'axios';
 
 export default class RegformR extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: "",
-      age: "",
-      username: "",
-      password: "",
-      country: "",
-      state: "",
-      city: "",
-      status: "R",
-    };
+    // this.state = {
+    //   name: "",
+    //   age: "",
+    //   username: "",
+    //   password: "",
+    //   country: "",
+    //   state: "",
+    //   city: "",
+    //   status: "R",
+    // };
+  }
+
+  state = {
+    name: "",
+    age: "",
+    username: "",
+    password: "",
+    country: "",
+    state: "",
+    city: "",
+    status: "T",
+  }
+
+  handleEvent = event => {
+    const local_resident = {
+      name: this.state.name,
+      age: this.state.age,
+      username: this.state.username,
+      password: this.state.password,
+      country: this.state.country,
+      state: this.state.state,
+      city: this.state.city,
+    }
+
+    axios.post(`http://localhost:3000/local_resident/${local_resident.name}/${local_resident.age}/${local_resident.username}/${local_resident.password}/${local_resident.country}/${local_resident.state}/${local_resident.city}`, local_resident)
+    .then(res => {
+      console.log(res);
+    })
+
+    this.props.navigation.navigate("Home", {username: this.state.username, })
   }
 
   render() {
@@ -86,7 +117,7 @@ export default class RegformR extends Component {
             {/* Change navigation to homescreen after user registers */}
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => this.props.navigation.navigate("Home")}
+              onPress={this.handleEvent}
             >
               <Text style={styles.btntext}>Sign Up</Text>
             </TouchableOpacity>

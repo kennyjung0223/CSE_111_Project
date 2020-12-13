@@ -6,82 +6,126 @@ import {
   View,
   FlatList,
 } from "react-native";
+import axios from 'axios';
 
 export default class Connections extends Component {
   constructor(props) {
     super(props);
-    (this.arr = [
-      {
-        name: "Andy Bui",
-        userName: "abui27",
-        bio: "my bio",
-        age: "21",
-        status: "T",
-      },
-      {
-        name: "J.R. Smith",
-        userName: "JR21",
-        bio: "my bio",
-        age: "21",
-        status: "T",
-      },
-      {
-        name: "Kenny Jung",
-        userName: "GamjaMan",
-        bio: "my bio",
-        age: "21",
-        status: "T",
-      },
-      {
-        name: "Lebron James",
-        userName: "KingJames",
-        bio: "my bio",
-        age: "21",
-        status: "T",
-      },
-    ]),
-      (this.state = {
-        arrHolder: [],
-      });
+  }
+
+  state = {
+    data: [],
+    r_data: [],
+    status: 'T'
   }
 
   componentDidMount() {
-    // Copies this.arr into arrHolder
-    this.setState({ arrHolder: [...this.arr] });
+    axios.get(`http://localhost:3000/get_status/${this.props.username}`)
+    .then(res => {
+      this.setState({status: res.data[0].status});
+    })
+    .catch(err => {
+      console.error(err);
+    })
+
+    this.fetchToConnect();
+  }
+
+  fetchToConnect = () => {
+    axios.get(`http://localhost:3000/to_connectT/${this.props.username}`)
+    .then(res => {
+      this.setState({data: res.data});
+    })
+    .catch(err => {
+      console.error(err);
+    })
+
+    // axios.get(`http://localhost:3000/to_connectR/${this.props.username}`)
+    // .then(res => {
+    //   this.setState({r_data: res.data});
+    // })
+    // .catch(err => {
+    //   console.error(err);
+    // })
   }
 
   render() {
-    const userName = this.props.username;
+    const username = this.props.username;
+    // let rendered_data;
+    // if (this.state.status == 'R') {
+    //   rendered_data = <FlatList
+    //   style={styles.list}
+    //   data={this.state.r_data}
+    //   keyExtractor = {(item, index) => index.toString()}
+    //   renderItem = {({ item }) => 
+    //     <View style={styles.item}>
+    //       <TouchableOpacity
+    //         onPress={() =>
+    //           this.props.navigation.navigate("ViewUser", {
+    //             item,
+    //             username: username,
+    //           })
+    //         }
+    //       >
+    //         <Text style={styles.name}>{item.name} {item.surname}</Text>
+    //         <Text style={styles.username}>{item.username}</Text>
+    //       </TouchableOpacity>
+    //     </View>
+    //   }
+    // />
+    // }
+    // else if (this.state.status == 'T') {
+    //   rendered_data = <FlatList
+    //   style={styles.list}
+    //   data={this.state.data}
+    //   keyExtractor = {(item, index) => index.toString()}
+    //   renderItem = {({ item }) => 
+    //     <View style={styles.item}>
+    //       <TouchableOpacity
+    //         onPress={() =>
+    //           this.props.navigation.navigate("ViewUser", {
+    //             item,
+    //             username: username,
+    //           })
+    //         }
+    //       >
+    //         <Text style={styles.name}>{item.name} {item.surname}</Text>
+    //         <Text style={styles.username}>{item.username}</Text>
+    //       </TouchableOpacity>
+    //     </View>
+    //   }
+    // />
+    // }
     return (
       <View style={styles.container}>
         <View>
+          {/* {rendered_data} */}
           <FlatList
             style={styles.list}
-            data={this.state.arrHolder}
-            extraData={this.state.arrHolder}
-            keyExtractor={(item) => item.userName}
-            renderItem={({ item }) => (
+            data={this.state.data}
+            keyExtractor = {(item, index) => index.toString()}
+            renderItem = {({ item }) => 
               <View style={styles.item}>
                 <TouchableOpacity
                   onPress={() =>
                     this.props.navigation.navigate("ViewUser", {
                       item,
-                      userName: userName,
+                      username: username,
                     })
                   }
                 >
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.username}>{item.userName}</Text>
+                  <Text style={styles.name}>{item.name} {item.surname}</Text>
+                  <Text style={styles.username}>{item.username}</Text>
                 </TouchableOpacity>
               </View>
-            )}
+            }
           />
         </View>
         <TouchableOpacity
           style={styles.btn}
           onPress={() =>
             this.props.navigation.navigate("ConnectionsList", {
-              userName: userName,
+              username: username,
             })
           }
         >

@@ -9,21 +9,62 @@ import {
   Keyboard,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios from 'axios';
 
 export default class AddRecommendationScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      textInput_name: "",
-      textInput_city: "",
-      textInput_state: "",
-      textInput_country: "",
-      textInput_description: "",
-    };
+    // this.state = {
+    //   textInput_name: "",
+    //   textInput_city: "",
+    //   textInput_state: "",
+    //   textInput_country: "",
+    //   textInput_description: "",
+    // };
+  }
+
+  state = {
+    textInput_name: "",
+    textInput_city: "",
+    textInput_state: "",
+    textInput_country: "",
+    textInput_description: "",
+    resident_id: 0
+  }
+
+  componentDidMount() {
+    const username = this.props.route.params;
+    
+    axios.get(`http://localhost:3000/local_resident_id/${username.username}`)
+    .then(res => {
+      this.setState({resident_id: res.data[0].resident_id})
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
+
+  handleEvent = event => {
+
+    const recommendation = {
+      location_name: this.state.textInput_name,
+      city: this.state.textInput_city,
+      state: this.state.textInput_state,
+      country: this.state.textInput_country,
+      description: this.state.textInput_description,
+      resident_id: this.state.resident_id
+    }
+
+    axios.post(`http://localhost:3000/add_recommendation/${this.props.username}/${recommendation.resident_id}/${recommendation.location_name}/${recommendation.city}/${recommendation.state}/${recommendation.country}/${recommendation.description}`, recommendation)
+    .then(res => {
+      console.log(res);
+    })
+
+    this.props.navigation.goBack()
   }
 
   render() {
-    const { userName } = this.props.route.params;
+    const { username } = this.props.route.params;
     return (
       <KeyboardAwareScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -78,9 +119,7 @@ export default class AddRecommendationScreen extends Component {
             </View>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}
+              onPress={this.handleEvent}
             >
               <Text style={styles.btnText}>Confirm</Text>
             </TouchableOpacity>

@@ -9,27 +9,69 @@ import {
   Keyboard,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios from 'axios';
 
 export default class RegformT extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: "",
-      age: "",
-      username: "",
-      password: "",
-      bio: "",
-      email: "",
-      country: "",
-      state: "",
-      city: "",
-      vacationCountry: "",
-      vacationState: "",
-      vacationCity: "",
-      startDate: "",
-      endDate: "",
-      status: "T",
-    };
+    // this.state = {
+    //   name: "",
+    //   age: "",
+    //   username: "",
+    //   password: "",
+    //   bio: "",
+    //   email: "",
+    //   country: "",
+    //   state: "",
+    //   city: "",
+    //   vacationCountry: "",
+    //   vacationState: "",
+    //   vacationCity: "",
+    //   startDate: "",
+    //   endDate: "",
+    //   status: "T",
+    // };
+  }
+  state = {
+    name: "",
+    age: "",
+    username: "",
+    password: "",
+    bio: "",
+    email: "",
+    country: "",
+    state: "",
+    city: "",
+    vacationCountry: "",
+    vacationState: "",
+    vacationCity: "",
+    startDate: "",
+    endDate: "",
+    status: "T",
+  }
+
+  handleEvent = event => {
+    const traveler = {
+      name: this.state.name,
+      age: this.state.age,
+      username: this.state.username,
+      password: this.state.password,
+      country: this.state.country,
+      state: this.state.state,
+      city: this.state.city,
+      vacationCountry: this.state.vacationCountry,
+      vacationState: this.state.vacationState,
+      vacationCity: this.state.vacationCity,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate
+    }
+
+    axios.post(`http://localhost:3000/traveler/${traveler.name}/${traveler.age}/${traveler.username}/${traveler.password}/${traveler.country}/${traveler.state}/${traveler.city}/${traveler.vacationCountry}/${traveler.vacationState}/${traveler.vacationCity}/${traveler.startDate}/${traveler.endDate}`, traveler)
+    .then(res => {
+      console.log(res);
+    })
+
+    this.props.navigation.navigate("Home")
   }
 
   render() {
@@ -128,7 +170,7 @@ export default class RegformT extends Component {
             {/* Change navigation to homescreen after user registers */}
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => this.props.navigation.navigate("Home")}
+              onPress={this.handleEvent}
             >
               <Text style={styles.btntext}>Sign Up</Text>
             </TouchableOpacity>
